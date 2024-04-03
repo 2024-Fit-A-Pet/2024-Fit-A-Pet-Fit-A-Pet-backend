@@ -13,11 +13,6 @@ import java.time.LocalDateTime;
 @EntityListeners({AuditingEntityListener.class})
 public class CoreEntity {
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
-
     @CreatedDate
     private LocalDateTime createdAt;
 
