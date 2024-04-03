@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name="supplement")
 @Entity
 public class supplement extends CoreEntity {
-    @Column(name="supplement_name",length = 32, nullable = false,)
+    @Column(name="supplement_name",length = 32, nullable = false)
     private String supplementName;
 
 }
