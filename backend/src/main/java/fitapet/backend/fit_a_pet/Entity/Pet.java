@@ -1,64 +1,46 @@
 package fitapet.backend.fit_a_pet.Entity;
 
+import fitapet.backend.fit_a_pet.common.CoreEntity;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+@Table(name="pet")
 @Entity
-@Table(name = "pet")
-public class Pet {
+public class Pet extends CoreEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="pet_id")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+    @Column(name="name")
     private String name;
-    private Integer age;
+
+    @Column(name="age")
+    private int age;
+
+    @Column(name="species")
     private String species;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @Column(name="gender")
+    private String gender;
 
-    private Double weight;
+    @Column(name="weight")
+    private double weight;
 
-    @Temporal(TemporalType.DATE)
-    private Date startedDate;
+    @Column(name="started_date")
+    private LocalDateTime started_date;
 
+    @Column(name="feed")
     private String feed;
-    private String soreSpot;
-    private String profileUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Users users;
+    @Column(name="sore_sport")
+    private String sore_sport;
 
-    @CreatedDate
-    private Date createdAt;
-
-    @LastModifiedDate
-    private  Date updatedAt;
-
-    private Boolean isDeleted;
-
-    public Pet() {
-
-    }
-
-    public Pet(Long id, String name, Integer age, String species, Gender gender, Double weight, Date startedDate, String feed, String soreSpot, String profileUrl, Users users, Date createdAt, Date updatedAt, Boolean isDeleted) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.species = species;
-        this.gender = gender;
-        this.weight = weight;
-        this.startedDate = startedDate;
-        this.feed = feed;
-        this.soreSpot = soreSpot;
-        this.profileUrl = profileUrl;
-        this.users = users;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.isDeleted = isDeleted;
-    }
+    @Column(name="profile_url")
+    private String profile_url;
 }
