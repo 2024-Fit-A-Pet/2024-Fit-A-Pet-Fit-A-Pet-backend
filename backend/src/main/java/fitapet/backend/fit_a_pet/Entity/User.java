@@ -1,13 +1,9 @@
 package fitapet.backend.fit_a_pet.Entity;
 
 import fitapet.backend.fit_a_pet.common.CoreEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,6 +14,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @ToString
 public class User extends CoreEntity{
+
+    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="user_id")
+    private Long id;
 
     @Column(name="name",nullable = false)
     @Size(min=4, max=15)
