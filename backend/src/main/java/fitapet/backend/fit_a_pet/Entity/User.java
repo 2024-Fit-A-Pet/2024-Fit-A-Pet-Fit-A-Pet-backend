@@ -21,13 +21,13 @@ public class User extends CoreEntity{
 
     @Column(name="name",nullable = false)
     @Size(min=4, max=15)
-    public String name;
+    private String name;
 
     @Email
     @Size(min=4, max=50)
     @Column(name="email",nullable = false)
-    public String email;
+    private String email;
 
     @Column(name="password",nullable = false)
-    public String password;
+    private String password;
 }
