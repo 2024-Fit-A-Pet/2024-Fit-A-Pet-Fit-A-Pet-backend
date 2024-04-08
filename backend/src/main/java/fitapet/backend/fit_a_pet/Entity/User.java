@@ -4,14 +4,15 @@ import fitapet.backend.fit_a_pet.common.CoreEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name="users")
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
+@Setter
+@Getter
 @ToString
 public class User extends CoreEntity{
 
