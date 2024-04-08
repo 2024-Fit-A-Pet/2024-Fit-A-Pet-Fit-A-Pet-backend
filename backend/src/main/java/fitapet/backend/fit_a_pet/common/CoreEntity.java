@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 public class CoreEntity {
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    public LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    public LocalDateTime updatedAt;
 
-    private LocalDateTime deletedAt;
+    public LocalDateTime deletedAt = null;
     @PreRemove
     public void preRemove() {
         this.deletedAt = LocalDateTime.now();
