@@ -1,6 +1,7 @@
 package fitapet.backend.fit_a_pet.service;
 
 import fitapet.backend.fit_a_pet.Entity.User;
+import fitapet.backend.fit_a_pet.dto.UserCreateDTO;
 import fitapet.backend.fit_a_pet.dto.UserUpdateDTO;
 
 import java.net.http.HttpResponse;
@@ -16,15 +17,15 @@ public interface UserService {
 
     User findUserByName(String name);
 
-    User findUserByEmail(String email);
-
     User findUserById(Long id);
 
-    User createUser(User user);
+    User findUserByEmail(String email);
 
-    User updateUser(User user, UserUpdateDTO userUpdateDTO);
+    User createUser(UserCreateDTO userCreateDTO);
 
-    User deleteUser(User user);
+    User updateUser(UserUpdateDTO userUpdateDTO);
+
+    User deleteUser(Long UserID);
 
     ////////////////////////////////////////////////////////////
 
