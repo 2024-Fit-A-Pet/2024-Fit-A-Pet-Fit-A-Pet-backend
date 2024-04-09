@@ -1,11 +1,14 @@
 package fitapet.backend.fit_a_pet.service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Optional;
 
 @Slf4j
@@ -67,5 +71,18 @@ public class S3Service{
             return Optional.of(convertFile);
         }
         return Optional.empty();
+    }
+
+    public ResponseEntity<byte[]> download(String fileName) throws IOException {
+        S3Object awsS3Object = amazonS3.getObject(new GetObjectRequest(bucket, DIR_NAME + "/" + fileName));
+        S3ObjectInputStream s3is = awsS3Object.getObjectContent();
+        byte[] bytes = s3is.readAllBytes();
+
+        String downloadedFileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+        httpHeaders.setContentLength(bytes.length);
+        httpHeaders.setContentDispositionFormData("attachment", downloadedFileName);
+        return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);
     }
 }
