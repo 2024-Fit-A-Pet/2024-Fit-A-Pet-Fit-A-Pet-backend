@@ -17,7 +17,7 @@ public class Pet extends CoreEntity {
     @Column(name="pet_id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="user_id")
     private User user;
 
