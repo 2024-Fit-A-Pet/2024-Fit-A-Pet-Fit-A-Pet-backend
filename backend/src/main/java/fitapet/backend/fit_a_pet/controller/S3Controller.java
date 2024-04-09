@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,5 +24,12 @@ public class S3Controller {
         String extend = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
         s3Service.upload(fileName,multipartFile,extend);
         return new ResponseEntity(null, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/teams/{fileName}")
+    public ResponseEntity<byte[]> getPetImage(
+            @PathVariable String fileName
+    ) throws IOException {
+        return s3Service.download(fileName);
     }
 }
