@@ -24,19 +24,18 @@ public class S3Service{
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    private final String DIR_NAME = "pet_picture";
 
-
-    // MultipartFile을 전달받아 File로 전환한 후 S3에 업로드
-    public String upload(MultipartFile multipartFile, String dirName) throws IOException { // dirName의 디렉토리가 S3 Bucket 내부에 생성됨
+    public void upload(String fileName, MultipartFile multipartFile, String extend) throws IOException { // dirName의 디렉토리가 S3 Bucket 내부에 생성됨
 
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
-        return upload(uploadFile, dirName);
+        upload(fileName, uploadFile, extend);
     }
 
-    private String upload(File uploadFile, String dirName) {
-        String fileName = dirName + "/" + uploadFile.getName();
-        String uploadImageUrl = putS3(uploadFile, fileName);
+    private String upload(String fileName,File uploadFile,String extend) {
+        String newFileName = DIR_NAME + "/" + fileName+extend;
+        String uploadImageUrl = putS3(uploadFile, newFileName);
 
         removeNewFile(uploadFile);  // convert()함수로 인해서 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
