@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: pet_home
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
       SPRING_PROFILES_ACTIVE: dev
     restart: always
@@ -33,3 +33,5 @@ services:
 networks:
   fit_a_pet:
     driver: bridge
+
+    external: true
