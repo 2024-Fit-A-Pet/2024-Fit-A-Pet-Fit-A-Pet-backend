@@ -33,3 +33,4 @@ services:
 networks:
   fit_a_pet:
     driver: bridge
+    external: true
